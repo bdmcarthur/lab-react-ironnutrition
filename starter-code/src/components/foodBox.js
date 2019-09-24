@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export default class FoodBox extends Component {
   render() {
     const foods = this.props.foods;
-    console.log(foods);
+
     return (
       <div>
         {foods.map(food => (
