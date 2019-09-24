@@ -33,7 +33,6 @@ export default class AddNew extends Component {
   };
 
   handleFormSubmit = event => {
-    console.log(this.state);
     event.preventDefault();
     this.props.addItem(this.state);
     this.setState({
