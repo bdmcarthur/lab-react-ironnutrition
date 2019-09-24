@@ -10,13 +10,22 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      items: foods,
       active: false
     };
     this.toggle = this.toggle.bind(this);
+    // this.addItem = this.addItem.bind(this);
   }
 
+  addItem = item => {
+    const itemCopy = [...foods];
+    itemCopy.push(item);
+    this.setState({
+      items: itemCopy
+    });
+  };
+
   toggle(event) {
-    console.log("clicked");
     this.setState({
       active: event.target
     });
@@ -25,12 +34,11 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <FoodBox foods={foods} />
-        {/* <input type="checkbox" onChange={this.toggle} /> */}
+        <FoodBox foods={this.state.items} />
         <Button onClick={this.toggle} variant="danger my-5">
           Danger
         </Button>
-        {this.state.active && <AddNew />}
+        {this.state.active && <AddNew addItem={this.addItem} />}
       </div>
     );
   }
