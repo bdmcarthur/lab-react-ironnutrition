@@ -3,29 +3,41 @@ import "./App.css";
 import foods from "./foods.json";
 import FoodBox from "./components/foodBox";
 import AddNew from "./components/addNew";
+import Today from "./components/today";
 import Search from "./components/search";
 import Button from "react-bootstrap/Button";
 import { isTemplateElement } from "@babel/types";
-
+let today = [];
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       items: foods,
-      active: false
+      // today: today,
+      newActive: false,
+      todayActive: false,
+      todaysFoods: [foods[0]]
     };
-    this.toggle = this.toggle.bind(this);
+
+    this.newToggle = this.newToggle.bind(this);
     this.addItem = this.addItem.bind(this);
     this.search = this.search.bind(this);
+    this.addToday = this.addToday.bind(this);
   }
 
+  addToday = item => {
+    today.push(item);
+    this.setState({
+      today: today
+    });
+    this.todayToggle();
+  };
+
   search = searchTerm => {
-    console.log(searchTerm);
     const itemCopy = [...foods];
     const searched = itemCopy.filter(item => {
       let name = item.name.toLowerCase();
-      console.log(name);
-      if (name.includes(searchTerm.term)) {
+      if (name.includes(searchTerm.toLowerCase())) {
         return item;
       }
     });
@@ -42,21 +54,28 @@ class App extends Component {
     });
   };
 
-  toggle(event) {
+  newToggle(event) {
     this.setState({
-      active: event.target
+      newActive: event.target
     });
   }
 
   render() {
     return (
-      <div className="container">
+      <div className="container mb-5">
+        <h1 className="display-1 text-center mt-5">IronNutrition</h1>
         <Search search={this.search} />
-        <FoodBox foods={this.state.items} />
-        <Button onClick={this.toggle} variant="danger my-5">
-          Danger
+        <Today todayFoods={this.state.todaysFoods} />
+        {this.state.items.map(foods => (
+          <FoodBox foods={foods} key={foods.name} />
+        ))}
+        {this.state.newActive && <AddNew addItem={this.addItem} />}
+        <Button
+          onClick={this.newToggle}
+          variant="outline-danger my-5 text-center d-block btn-lg mx-auto"
+        >
+          Add New Food
         </Button>
-        {this.state.active && <AddNew addItem={this.addItem} />}
       </div>
     );
   }

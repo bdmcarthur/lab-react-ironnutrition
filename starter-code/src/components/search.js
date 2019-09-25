@@ -1,31 +1,24 @@
 import React, { Component } from "react";
 
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import InputGroup from "react-bootstrap/InputGroup";
+
 export default class Search extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: ""
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ term: event.target.value });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    this.props.search(this.state);
-  }
-
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input value={this.state.value} onChange={this.handleChange} />
-        <input type="submit" value="Submit" />
-      </form>
+      <div className="mx-auto container my-5 w-75">
+        <Form>
+          <InputGroup className="mb-3">
+            <FormControl
+              type="text"
+              placeholder="Search"
+              onChange={event => this.props.search(event.target.value)}
+            />
+          </InputGroup>
+        </Form>
+      </div>
     );
   }
 }

@@ -44,7 +44,7 @@ export default class AddNew extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container mx-auto w-75">
         <Form onSubmit={this.handleFormSubmit}>
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
@@ -76,7 +76,7 @@ export default class AddNew extends Component {
               onChange={e => this.handleImageInput(e)}
             />
           </Form.Group>
-          <Button variant="primary" type="submit" value="Submit">
+          <Button variant="danger" type="submit" value="Submit">
             Submit
           </Button>
         </Form>
