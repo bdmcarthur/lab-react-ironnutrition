@@ -16,7 +16,8 @@ class App extends Component {
       // today: today,
       newActive: false,
       todayActive: false,
-      todaysFoods: [foods[0]]
+      todaysFoods: [foods[0]],
+      searched: []
     };
 
     this.newToggle = this.newToggle.bind(this);
@@ -34,6 +35,8 @@ class App extends Component {
   };
 
   search = searchTerm => {
+    console.log(searchTerm);
+    console.log(this.state.items);
     const itemCopy = [...foods];
     const searched = itemCopy.filter(item => {
       let name = item.name.toLowerCase();
@@ -47,7 +50,7 @@ class App extends Component {
   };
 
   addItem = item => {
-    const itemCopy = [...foods];
+    const itemCopy = this.state.items;
     itemCopy.push(item);
     this.setState({
       items: itemCopy
